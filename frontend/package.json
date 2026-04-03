@@ -1,3 +1,6 @@
+"scripts": {
+  "start": "node app.js" 
+}
 {
   "name": "debthelper-frontend",
   "private": true,
