@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - debthelper
 
 on:
@@ -12,9 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
       - uses: actions/checkout@v4
 
@@ -24,7 +18,7 @@ jobs:
           node-version: '22.x'
 
       - name: npm install and build
-        # จุดตายอยู่ตรงนี้: บอกให้มันวิ่งเข้าโฟลเดอร์ frontend ก่อนทำงาน และใช้ npx เพื่อแก้เรื่อง Permission
+        # เราใช้ npx รันโดยตรงเพื่อเลี่ยงปัญหา Permission ที่คุณเจอในรูปที่ 21
         run: |
           npm install
           npx vite build
@@ -34,28 +28,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          # บอกให้เก็บไฟล์จากโฟลเดอร์ dist ที่อยู่ใน frontend ขึ้นไป
           path: ./frontend/dist
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      id-token: write
-      contents: read
-
+    environment:
+      name: 'Production'
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: node-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_627B3BF04FF040168135ED5FA66FBAF3 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_980F0CB13746458189BB89329145C58D }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7042060DE3104C4CB79B8D59D9C64764 }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
