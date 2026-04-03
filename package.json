@@ -1,0 +1,13 @@
+{
+  "name": "debthelper",
+  "version": "1.0.0",
+  "description": "DebtHelper Web App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "cd frontend && npm install && npm run build"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
