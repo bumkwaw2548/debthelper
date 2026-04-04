@@ -9,7 +9,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 // 2. React Router — แก้ไขจุดที่ปิดวงเล็บผิด
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+ res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 }); // <-- เพิ่มปีกกาและวงเล็บปิดตรงนี้ค่ะ
 
 // 3. เริ่มทำงาน Server
