@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "func start",
-    "build": "echo 'No build needed'"
+    "build": "npx vite build"
   },
   "dependencies": {
     "better-sqlite3": "^12.8.0",
