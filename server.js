@@ -4,14 +4,15 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Serve static files จาก frontend/dist
+// 1. Serve static files จากโฟลเดอร์ dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// React Router — ทุก route ที่ไม่ใช่ไฟล์ ให้ส่ง index.html กลับไป
+// 2. React Router — แก้ไขจุดที่ปิดวงเล็บผิด
 app.get('*', (req, res) => {
-res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+}); // <-- เพิ่มปีกกาและวงเล็บปิดตรงนี้ค่ะ
 
+// 3. เริ่มทำงาน Server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
